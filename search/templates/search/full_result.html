@@ -1,0 +1,47 @@
+{% extends 'search/base.html' %}
+{% load staticfiles %} /* for the use of the static variable - see below */
+{% load url from future %}
+{% block title %}
+{% include 'search/top_nav.html' %}
+{% endblock %}
+{% block sidebar %}
+<h3>Search Menu</h3>
+  <ul>
+    <li><a href="/search/">Individual Search</a></li>
+    <li><a href="/search/full/">Full Search</a></li>
+  </ul>
+<input type="button" value="Go back" onClick="window.location.href='/search/full'">
+{% endblock %}
+{% block content %}
+{% if results %}
+	<table>
+        <tr>
+         <th>name</th>
+         <th>version</th>
+	 <th>Metamodule</th>
+	 <th>Release</th>
+	 <th>create date</th>
+        </tr>
+
+	{% for module in results %}
+	<tr>
+	  <td>{{ module.name }}</td>
+	  <td>{{ module.version }}</td>
+	  <td>{{ module.metamodule }}</td>
+	  <td>{{ module.metamodule.release.number }}</td>
+	  <td>{{ module.createdate }}</td>
+	</tr>
+	{% endfor %}
+	
+{% else %}
+      <h3 class='error'>Please enter a valid Modulename</h3>
+      <form action="/search/full/" method="get">
+        <p><label for="release_name">Release:</label>
+	{{ form.release_num }}
+        <p><label for="metamodule_name">Metamodule:</label>
+	{{ form.metamodule_name }}
+        <input type="submit" value="Search">
+	
+      </form>
+{% endif %}
+{% endblock %}

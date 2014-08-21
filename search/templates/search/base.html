@@ -1,0 +1,27 @@
+<!DOCTYPE>
+<html>
+<head>
+<div id=top_nav" style="height: 50px; border-top: solid medium #006600; border-bottom: solid medium #006600; background-color: #FFFFFF; ">
+{% block title %}{% endblock %}
+</div>
+<style>
+table, td, th {
+    border: 1px solid green;
+}
+
+th {
+    background-color: green;
+    color: white;
+}
+</style>
+</head>
+<body>
+    <div id="sidebar" style = "margin: 20px 0px 10px 0px; width: 180px; float: left; border: thin dashed #006600;">
+        {% block sidebar %}{% endblock %}
+    </div>
+
+    <div id="content" style="margin: 20px 10px 10px 200px;">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

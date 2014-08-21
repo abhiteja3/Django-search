@@ -1,0 +1,91 @@
+{% extends 'search/base.html' %}
+{% load staticfiles %} /* for the use of the static variable - see below */
+{% load url from future %}
+{% block title %}
+{% include 'search/top_nav.html' %}
+{% endblock %}
+{% block sidebar %}
+<h3>Search Menu</h3>
+  <ul>
+    <li><a href="/search/">Individual Search</a></li>
+    <li><a href="/search/full/">Full Search</a></li>
+  </ul>
+<input type="button" value="Go back" onClick="window.location.href='/search'">
+{% endblock %}
+{% block content %}
+{% if results %}
+	<table>
+        <tr>
+         <th>module_name</th>
+         <th>module_version</th>
+	 <th>manager</th>
+	 <th>owner</th>
+	 <th>Metamodule</th>
+	 <th>Metamodule_version</th>
+         <th>Release</th>
+	 <th>create date</th>
+	</tr>
+
+	{% for module in results %}
+	<tr>
+          <td>{{ module.name }}</td>
+	  <td>{{ module.version }}</td>
+          <td>{{ module.manager }}</td>
+	  <td>{{ module.owner }}</td> 
+	  <td>{% for metamodule in module.metamodules.all %}{{ metamodule }}{% endfor %}</td>
+	  <td>{% for metamodule in module.metamodules.all %}{{ metamodule.version }}{% endfor %}</td>
+          <td>{% for metamodule in module.metamodules.all %}{{ metamodule.release.number }}{% endfor %}</td>
+	  <td>{{ module.createdate }}</td>
+	</tr>
+	{% endfor %}
+	
+  
+{% else %}
+      <h3 class='error'>Please enter a valid Modulename</h3>
+      <form action="/search/" method="get">
+        <p><label for="metamodule_name">Metamodule:</label>
+	{{ form1.metamodule_name }}
+	<input type="submit" value="Search Metamodule" name="f1">
+      </form>
+      <form action="/search/" method="get">
+        <p><label for="release_num">Release:</label>
+	{{ form2.release_num }}
+	<input type="submit" value="Search release" name="f2">
+      </form>
+      <form action="/search/" method="get">
+        <p><label for="module_name">Module:</label>
+	{{ form3.module_name }}
+	<input type="submit" value="Search module" name="f3">
+      </form>
+{% endif %}
+<p></p>
+<p>
+<h3>DEPENDENCIES</h3>
+{% if results1 %}
+	<table>
+        <tr>
+         <th>module_name</th>
+         <th>manager</th>
+	 <th>owner</th>
+	 <th>Metamodule</th>
+	 <th>Metamodule_version</th>
+         <th>Release</th>
+	 <th>create date</th>
+	</tr>
+
+	{% for moduledep in results1 %}
+	<tr>
+          <td>{% for module in moduledep.modulename.all %}{{ moduledep }}{% endfor %}</td>
+	  <td>{% for module in moduledep.modulename.all %}{{ module.manager }}{% endfor %}</td>
+	  <td>{% for module in moduledep.modulename.all %}{{ module.owner }}{% endfor %}</td>
+          <td>{% for module in moduledep.modulename.all %}{% for metamodule in module.metamodules.all %}{{ metamodule }}{% endfor %}{% endfor %}</td>
+	  <td>{% for module in moduledep.modulename.all %}{% for metamodule in module.metamodules.all %}{{ metamodule.version }}{% endfor %}{% endfor %}</td>
+	  <td>{% for module in moduledep.modulename.all %}{% for metamodule in module.metamodules.all %}{{ metamodule.release.number }}{% endfor %}{% endfor %}</td>
+	  <td>{% for module in moduledep.modulename.all %}{{ module.createdate }}{% endfor %}</td>
+
+	</tr>
+	{% endfor %}
+	
+  {% endif %}
+</p>
+{% endblock %}

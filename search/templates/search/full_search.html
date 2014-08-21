@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    {% if error %}
+        <p style="color: red;">Please submit a search term.</p>
+    {% endif %}
+    <form action="/search/" method="get">
+        <p><label for="search">Search:</label>
+	{{ form1.release_num }}
+	{{ form2.module_name }}
+	{{ form3.metamodule_name }}
+        <input type="submit" value="Search">
+    </form>
+</body>
+</html>

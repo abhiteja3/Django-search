@@ -1,0 +1,16 @@
+{% extends 'search/base.html' %}
+{% load staticfiles %} /* for the use of the static variable - see below */
+{% load url from future %}
+{% block title %}
+{% include 'search/top_nav.html' %}
+{% endblock %}
+{% block sidebar %}
+<h3>Search Menu</h3>
+  <ul>
+    <li><a href="/search/">Individual Search</a></li>
+    <li><a href="/search/full/">Full Search</a></li>
+  </ul>
+{% endblock %}
+{% block content %}
+{% include 'search/full_search.html' %}
+{% endblock %}

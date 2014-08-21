@@ -1,0 +1,61 @@
+<html>
+ <head>
+  <title> Search </title>
+<style>
+table, td, th {
+   border: 1px solid green;
+}
+
+th {
+    background-color: green;
+    color: white;
+}
+</style>
+
+ </head>
+ <body>
+  <p> The results are listed below.</p>
+  <ul>
+   {% if results %}
+	<table>
+        <tr>
+         <th>Release Number</th>
+         <th>Release Notes</th>
+	 <th>Release Changes</th>
+	 <th>Metamodule</th>
+	 <th>Metamodule version</th>
+	 <th>Module name</th>
+	 <th>Module version</th>
+	 <th>Created Date</th>
+	</tr>
+
+	{% for module in results %}
+	<tr>
+          <td>{% for metamodule in module.metamodules.all %}{{ metamodule.release.number }}{% endfor %}</td>
+	  <td>{% for metamodule in module.metamodules.all %}{{ metamodule.release.notes }}{% endfor %}</td>
+	  <td>{% for metamodule in module.metamodules.all %}{{ metamodule.release.changes }}{% endfor %}</td>
+	  <td>{% for metamodule in module.metamodules.all %}{{ metamodule }}{% endfor %}</td>
+	  <td>{% for metamodule in module.metamodules.all %}{{ metamodule.version }}{% endfor %}</td>
+          <td>{{ module.name }}</td>
+	  <td>{{ module.version }}</td>
+          <td>{{ module.createdate }}</td>
+	</tr>
+	{% endfor %}
+	
+   {% else %}
+      <h3 class='error'>Please enter a valid Modulename</h3>
+      <form action="/search/" method="get">
+        <p><label for="release_name">Release:</label>
+	{{ form1.release_num }}
+        <p><label for="metamodule_name">Metamodule:</label>
+	{{ form2.metamodule_name }}
+        <p><label for="module_name">Module:</label>
+	{{ form3.module_name }}
+	<input type="submit" value="Search">
+	
+      </form>
+   {% endif %}
+	
+  </ul>
+ </body>
+</html>

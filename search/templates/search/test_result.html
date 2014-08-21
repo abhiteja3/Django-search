@@ -1,0 +1,31 @@
+{% if results %}
+	<table>
+        <tr>
+      	 <th>Module name</th>
+	 <th>Version</th>
+        </tr>
+
+	{% for module in results %}
+	<tr>
+	  <td>{{ module.name }}</td>
+	  <td>{{ module.version }}</td>
+	</tr>
+	{% endfor %}
+{% else %}
+      <h3 class='error'>Please enter a valid Modulename</h3>
+      <form action="/search/" method="get">
+        <p><label for="metamodule_name">Metamodule:</label>
+	{{ form1.metamodule_name }}
+	<input type="submit" value="Search Metamodule" name="f1">
+      </form>
+      <form action="/search/" method="get">
+        <p><label for="release_num">Release:</label>
+	{{ form2.release_num }}
+	<input type="submit" value="Search release" name="f2">
+      </form>
+      <form action="/search/" method="get">
+        <p><label for="module_name">Module:</label>
+	{{ form3.module_name }}
+	<input type="submit" value="Search module" name="f3">
+      </form>
+{% endif %}
