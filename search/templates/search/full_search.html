@@ -6,12 +6,14 @@
     {% if error %}
         <p style="color: red;">Please submit a search term.</p>
     {% endif %}
-    <form action="/search/" method="get">
-        <p><label for="search">Search:</label>
-	{{ form1.release_num }}
-	{{ form2.module_name }}
-	{{ form3.metamodule_name }}
-        <input type="submit" value="Search">
+    <form action="/search/full/" method="get">
+        <p><label for="metamodule_name">Metamodule:</label>
+	{{ form.metamodule_name }}
+        <p><label for="module_name">module:</label>
+	{{ form.module_name }}
+        <p><label for="release_num">release:</label>
+	{{ form.release_num }}
+	<p></p><input type="submit" value="Search">
     </form>
 </body>
 </html>
