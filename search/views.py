@@ -32,7 +32,7 @@ def searchview(request):
 	  form1 = MetamodForm()
           form2 = ModuleForm()
           form3 = ReleaseForm()    
-     return render(request, 'search/search_form.html',{'form1': form1, 'form2': form2, 'form3': form3})
+     return render(request, 'search/index.html',{'form1': form1, 'form2': form2, 'form3': form3})
 
 
 
@@ -44,7 +44,7 @@ def fullview(request):
 	  metamodule_name = form.cleaned_data['metamodule_name']
 	  module_name = form.cleaned_data['module_name']
 	  results = Module.objects.filter(metamodules__release__number=release_num).filter(metamodules__name=metamodule_name).filter(name=module_name)
-	  return render(request,'search/search_result.html',{'form': form, 'results': results})
+	  return render(request,'search/full_result.html',{'form': form, 'results': results})
      else:
 	  form = MainForm()    
-     return render(request, 'search/search_form12.html',{'form': form})
+     return render(request, 'search/index2.html',{'form': form})
