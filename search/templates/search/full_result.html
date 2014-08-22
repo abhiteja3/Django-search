@@ -34,14 +34,15 @@
 	{% endfor %}
 	
 {% else %}
-      <h3 class='error'>Please enter a valid Modulename</h3>
+      <h3 class='error' style="color: red;">Please enter valid search entries</h3>
       <form action="/search/full/" method="get">
-        <p><label for="release_name">Release:</label>
-	{{ form.release_num }}
         <p><label for="metamodule_name">Metamodule:</label>
 	{{ form.metamodule_name }}
-        <input type="submit" value="Search">
-	
-      </form>
+        <p><label for="module_name">module:</label>
+	{{ form.module_name }}
+        <p><label for="release_num">release:</label>
+	{{ form.release_num }}
+	<p></p><input type="submit" value="Search">
+    </form>
 {% endif %}
 {% endblock %}
